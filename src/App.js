@@ -26,12 +26,10 @@ class App extends Component {
         ]
     }
     render() {
-        return ( <
-            div className = "App" >
-            <
-            Todos todos={this.state.todos} />
-            <
-            /div>
+        return ( 
+            <div className = "App" >
+                <Todos todos={this.state.todos} />
+            </div>
         );
     }
 }
