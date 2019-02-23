@@ -2,17 +2,23 @@ import React, {
     Component
 } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import axios from 'axios';
+import './App.css';
 
 import Header from './components/layout/Header';
 import Todos from './components/Todos';
 import AddTodo from './components/AddTodo';
 import About from './components/pages/About';
 
-import './App.css';
-
 class App extends Component {
     state = {
         todos: []
+    }
+    
+    componentDidMount() {
+        const endpointUrl = 'https://jsonplaceholder.typicode.com/todos?_limit=10';
+        axios.get(endpointUrl)
+            .then(res => this.setState({ todos: res.data }));
     }
     
     markComplete = (id) => {
