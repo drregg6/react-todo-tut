@@ -16,9 +16,9 @@ class App extends Component {
     }
     
     componentDidMount() {
-        const endpointUrl = 'https://jsonplaceholder.typicode.com/todos?_limit=10';
-        axios.get(endpointUrl)
-            .then(res => this.setState({ todos: res.data }));
+        const endpoint = 'https://jsonplaceholder.typicode.com/todos?_limit=10';
+        axios.get(endpoint)
+        .then(res => this.setState({ todos: res.data }));
     }
     
     markComplete = (id) => {
@@ -31,20 +31,25 @@ class App extends Component {
     }
     
     delTodo = (id) => {
-        this.setState({ 
+        const endpoint = 'https://jsonplaceholder.typicode.com/todos';
+        
+        axios.delete(`${endpoint}/${id}`)
+        .then(res => this.setState({ 
             todos: [...this.state.todos.filter(todo => todo.id !== id)]
-        });
+        }));
+        
+        
     }
     
     addTodo = (title) => {
-        const newTodo = {
-            id: this.state.todos.length + 1,
+        const endpoint = 'https://jsonplaceholder.typicode.com/todos';
+        axios.post(endpoint, {
             title: title,
             completed: false
-        }
-        this.setState({
-            todos: [...this.state.todos, newTodo]
         })
+        .then(res => this.setState({
+            todos: [...this.state.todos, res.data]
+        }))
     }
     
     render() {
